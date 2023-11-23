@@ -8,7 +8,8 @@ public class Main {
 //        task1();
 //        task2();
 //        task3();
-        task4();
+//        task4();
+        task5();
     }
 
     //Task1
@@ -57,7 +58,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите предложение");
         String string = scanner.nextLine();
-        String[] words = string.split(" ");
+        String[] words = string.split("\\W+");
         int wordCounter = 0;
         int lengthCounter = 0;
 
@@ -65,7 +66,7 @@ public class Main {
             wordCounter++;
             lengthCounter += words[i].length();
         }
-
+        System.out.println("Counter = " + wordCounter);
         System.out.println("Средняя длина слова в предложении = " + lengthCounter / wordCounter);
     }
 
@@ -79,7 +80,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите предложение. Используйте латинские буквы");
         String string = scanner.nextLine();
-        String[] words = string.split(" ");
+        String[] words = string.split("\\W+");
 
         for (String word : words) {
             for (int i = 0; i < vowels.length; i++) {
@@ -92,9 +93,24 @@ public class Main {
                     isConsonats = true;
                 }
             }
-            if(isVowels && isConsonats){
+            if (isVowels && isConsonats) {
                 System.out.println(word);
             }
         }
+    }
+
+    //Task5
+    public static void task5() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите предложение. Слова могут быть разделены только пробелами или двоеточием");
+        String string = scanner.nextLine();
+        String[] words = string.split("[ :]");
+        int counter = 0;
+        for (String word : words) {
+            if (word.length() % 2 == 0) {
+                counter++;
+            }
+        }
+        System.out.println("В предложении " + counter + " слов с четным кол-вом букв");
     }
 }
