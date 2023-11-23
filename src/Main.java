@@ -7,7 +7,8 @@ public class Main {
     public static void main(String[] args) {
 //        task1();
 //        task2();
-        task3();
+//        task3();
+        task4();
     }
 
     //Task1
@@ -52,7 +53,7 @@ public class Main {
     }
 
     //Task3
-    public static void task3(){
+    public static void task3() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите предложение");
         String string = scanner.nextLine();
@@ -66,5 +67,34 @@ public class Main {
         }
 
         System.out.println("Средняя длина слова в предложении = " + lengthCounter / wordCounter);
+    }
+
+    //Task4
+    public static void task4() {
+        String[] vowels = new String[]{"a", "i", "o", "u", "y", "e"};
+        String[] consonats = new String[]{"q", "w", "r", "t", "p", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"};
+        boolean isVowels = false;
+        boolean isConsonats = false;
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите предложение. Используйте латинские буквы");
+        String string = scanner.nextLine();
+        String[] words = string.split(" ");
+
+        for (String word : words) {
+            for (int i = 0; i < vowels.length; i++) {
+                if (word.charAt(0) == vowels[i].charAt(0)) {
+                    isVowels = true;
+                }
+            }
+            for (int i = 0; i < consonats.length; i++) {
+                if (word.charAt(words.length - 1) == consonats[i].charAt(0)) {
+                    isConsonats = true;
+                }
+            }
+            if(isVowels && isConsonats){
+                System.out.println(word);
+            }
+        }
     }
 }
