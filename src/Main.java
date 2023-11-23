@@ -9,7 +9,8 @@ public class Main {
 //        task2();
 //        task3();
 //        task4();
-        task5();
+//        task5();
+        task6();
     }
 
     //Task1
@@ -57,7 +58,7 @@ public class Main {
     public static void task3() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите предложение");
-        String string = scanner.nextLine();
+        String string = scanner.nextLine().toLowerCase();
         String[] words = string.split("\\W+");
         int wordCounter = 0;
         int lengthCounter = 0;
@@ -73,27 +74,28 @@ public class Main {
     //Task4
     public static void task4() {
         String[] vowels = new String[]{"a", "i", "o", "u", "y", "e"};
-        String[] consonats = new String[]{"q", "w", "r", "t", "p", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"};
-        boolean isVowels = false;
-        boolean isConsonats = false;
-
+        String[] consonants = new String[]{"q", "w", "r", "t", "p", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"};
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите предложение. Используйте латинские буквы");
-        String string = scanner.nextLine();
+        String string = scanner.nextLine().toLowerCase();
         String[] words = string.split("\\W+");
 
         for (String word : words) {
-            for (int i = 0; i < vowels.length; i++) {
-                if (word.charAt(0) == vowels[i].charAt(0)) {
+            boolean isVowels = false;
+            boolean isConsonants = false;
+            for (String vowel : vowels) {
+                if (word.startsWith(vowel)) {
                     isVowels = true;
+                    break;
                 }
             }
-            for (int i = 0; i < consonats.length; i++) {
-                if (word.charAt(words.length - 1) == consonats[i].charAt(0)) {
-                    isConsonats = true;
+            for (String consonant : consonants) {
+                if (word.endsWith(consonant)) {
+                    isConsonants = true;
+                    break;
                 }
             }
-            if (isVowels && isConsonats) {
+            if(isVowels && isConsonants){
                 System.out.println(word);
             }
         }
@@ -113,4 +115,21 @@ public class Main {
         }
         System.out.println("В предложении " + counter + " слов с четным кол-вом букв");
     }
+
+    //Task6
+    public static void task6(){
+        String s1 = "4";
+        String s2 = "13";
+        int counter = 0;
+
+        for (int i = 0; i < 100_000; i++) {
+            if(String.valueOf(i).contains(s1) || String.valueOf(i).contains(s2)){
+                counter++;
+            }
+        }
+
+        System.out.println("Будет исключено " + counter + " номеров");
+
+    }
+
 }
