@@ -6,7 +6,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 //        task1();
-        task2();
+//        task2();
+        task3();
     }
 
     //Task1
@@ -48,5 +49,22 @@ public class Main {
         } else {
             System.out.println("вы вышли за пределы диапазона");
         }
+    }
+
+    //Task3
+    public static void task3(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите предложение");
+        String string = scanner.nextLine();
+        String[] words = string.split(" ");
+        int wordCounter = 0;
+        int lengthCounter = 0;
+
+        for (int i = 0; i < words.length; i++) {
+            wordCounter++;
+            lengthCounter += words[i].length();
+        }
+
+        System.out.println("Средняя длина слова в предложении = " + lengthCounter / wordCounter);
     }
 }
