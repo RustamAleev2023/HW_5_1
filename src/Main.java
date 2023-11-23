@@ -10,7 +10,8 @@ public class Main {
 //        task3();
 //        task4();
 //        task5();
-        task6();
+//        task6();
+        task7();
     }
 
     //Task1
@@ -130,6 +131,31 @@ public class Main {
 
         System.out.println("Будет исключено " + counter + " номеров");
 
+    }
+
+    //Task7
+    public static void task7(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите предложение.");
+
+        String s = scanner.nextLine();
+        StringBuilder output = new StringBuilder();
+
+        for (int i = 0; i < s.length(); i++) {
+            if(Character.isLetter(s.charAt(i))){
+                if (Character.isLowerCase(s.charAt(i))){
+                    output.append(Character.toUpperCase(s.charAt(i)));
+                } else {
+                    output.append(Character.toLowerCase(s.charAt(i)));
+                }
+            } else if(Character.isDigit(s.charAt(i))){
+                output.append("_");
+            } else {
+                output.append(s.charAt(i));
+            }
+        }
+
+        System.out.println(output);
     }
 
 }
