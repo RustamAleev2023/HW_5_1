@@ -15,7 +15,8 @@ public class Main {
 //        task6();
 //        task7();
 //        task8();
-        task9();
+//        task9();
+        task10();
     }
 
     //Task1
@@ -247,14 +248,14 @@ public class Main {
         String s1 = "Аз есмь строка, живу я, мерой остр";
         String s2 = "За семь морей ростка я вижу рост!";
 
-        if (isAnagramma(s1, s2)) {
+        if (isAnagram(s1, s2)) {
             System.out.println("Yes");
         } else {
             System.out.println("No");
         }
     }
 
-    public static boolean isAnagramma(String s1, String s2) {
+    public static boolean isAnagram(String s1, String s2) {
         s1 = s1.toLowerCase().replaceAll("(?U)[\\pP\\s]", "");
         s2 = s2.toLowerCase().replaceAll("(?U)[\\pP\\s]", "");
 
@@ -276,6 +277,29 @@ public class Main {
             }
         }
         return true;
+    }
+
+    //Task10
+    public static void task10(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите строку (макс длина 50 символов)");
+        String s = scanner.nextLine();
+        if(s.length() > 50){
+            System.out.println("Вы ввели строку длинной более 50 символов");
+        } else {
+            int n = s.length();
+
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= n - i; j++) {
+                    System.out.print(" ");
+                }
+                System.out.println(s.substring(0, i));
+            }
+
+            for (int i = 1; i < n; i++) {
+                System.out.println(s.substring(i, n));
+            }
+        }
     }
 
 }
