@@ -14,7 +14,8 @@ public class Main {
 //        task5();
 //        task6();
 //        task7();
-        task8();
+//        task8();
+        task9();
     }
 
     //Task1
@@ -99,7 +100,7 @@ public class Main {
                     break;
                 }
             }
-            if(isVowels && isConsonants){
+            if (isVowels && isConsonants) {
                 System.out.println(word);
             }
         }
@@ -121,13 +122,13 @@ public class Main {
     }
 
     //Task6
-    public static void task6(){
+    public static void task6() {
         String s1 = "4";
         String s2 = "13";
         int counter = 0;
 
         for (int i = 0; i < 100_000; i++) {
-            if(String.valueOf(i).contains(s1) || String.valueOf(i).contains(s2)){
+            if (String.valueOf(i).contains(s1) || String.valueOf(i).contains(s2)) {
                 counter++;
             }
         }
@@ -137,7 +138,7 @@ public class Main {
     }
 
     //Task7
-    public static void task7(){
+    public static void task7() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите предложение.");
 
@@ -145,13 +146,13 @@ public class Main {
         StringBuilder output = new StringBuilder();
 
         for (int i = 0; i < s.length(); i++) {
-            if(Character.isLetter(s.charAt(i))){
-                if (Character.isLowerCase(s.charAt(i))){
+            if (Character.isLetter(s.charAt(i))) {
+                if (Character.isLowerCase(s.charAt(i))) {
                     output.append(Character.toUpperCase(s.charAt(i)));
                 } else {
                     output.append(Character.toLowerCase(s.charAt(i)));
                 }
-            } else if(Character.isDigit(s.charAt(i))){
+            } else if (Character.isDigit(s.charAt(i))) {
                 output.append("_");
             } else {
                 output.append(s.charAt(i));
@@ -162,24 +163,23 @@ public class Main {
     }
 
     //Task8
-    public static void task8(){
+    public static void task8() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите название переменной.");
 
         String s = scanner.next();
         StringBuilder output = new StringBuilder();
 
-        if(isJavaAndC(s)){
+        if (isJavaAndC(s)) {
             System.out.println("Название " + s + " имеет смешанный тип (подходит для обоих языков)");
-        }
-        else if(isC(s)){
+        } else if (isC(s)) {
             String regex = "_";
             String[] strings = split(s, regex);
 
             output.append(strings[0]);
             for (int i = 1; i < strings.length; i++) {
                 for (int i1 = 0; i1 < strings[i].length(); i1++) {
-                    if(i1 == 0){
+                    if (i1 == 0) {
                         output.append(Character.toUpperCase(strings[i].charAt(i1)));
                     } else {
                         output.append(strings[i].charAt(i1));
@@ -187,9 +187,7 @@ public class Main {
                 }
             }
             System.out.println(output);
-        }
-
-        else if(isJava(s)){
+        } else if (isJava(s)) {
             String regex = "(?=[A-Z])";
             String add = "_";
             String[] strings = split(s, regex);
@@ -199,7 +197,7 @@ public class Main {
             for (int i = 1; i < strings.length; i++) {
                 output.append(add);
                 for (int i1 = 0; i1 < strings[i].length(); i1++) {
-                    if(i1 == 0){
+                    if (i1 == 0) {
                         output.append(Character.toLowerCase(strings[i].charAt(i1)));
                     } else {
                         output.append(strings[i].charAt(i1));
@@ -208,14 +206,13 @@ public class Main {
             }
             System.out.println(output);
 
-        }
-        else {
+        } else {
             System.out.println("неверный формат");
         }
     }
 
     //С++ - только маленькие буквы, слова разделены нижним подчеркиванием
-    public static boolean isC(String string){
+    public static boolean isC(String string) {
         String regEx = "^[a-z]+(_[a-z]+)+";
         Pattern pattern = Pattern.compile(regEx);
         Matcher matcher = pattern.matcher(string);
@@ -224,7 +221,7 @@ public class Main {
     }
 
     //JavaAndC - в названии только одно слово с маленькой буквы
-    public static boolean isJavaAndC(String string){
+    public static boolean isJavaAndC(String string) {
         String regEx = "^[a-z]+$";
         Pattern pattern = Pattern.compile(regEx);
         Matcher matcher = pattern.matcher(string);
@@ -233,15 +230,52 @@ public class Main {
     }
 
     //Java - первое слово - маленькие буквы, каждое следующееслово - с большой буквы, без пробелов
-    public static boolean isJava(String string){
+    public static boolean isJava(String string) {
         String regEx = "^[a-z]+([A-Z][a-z]+)+$";
         Pattern pattern = Pattern.compile(regEx);
         Matcher matcher = pattern.matcher(string);
 
         return matcher.find();
     }
-    public static String[] split(String resource,String regex){
+
+    public static String[] split(String resource, String regex) {
         return resource.split(regex);
+    }
+
+    //Task9
+    public static void task9() {
+        String s1 = "Аз есмь строка, живу я, мерой остр";
+        String s2 = "За семь морей ростка я вижу рост!";
+
+        if (isAnagramma(s1, s2)) {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
+    }
+
+    public static boolean isAnagramma(String s1, String s2) {
+        s1 = s1.toLowerCase().replaceAll("(?U)[\\pP\\s]", "");
+        s2 = s2.toLowerCase().replaceAll("(?U)[\\pP\\s]", "");
+
+
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+        int[] letters = new int[5000];
+
+        char[] s1_array = s1.toCharArray();
+        for (char c : s1_array) {
+            letters[c]++;
+        }
+        for (int i = 0; i < s2.length(); i++) {
+            int c = (int) s2.charAt(i);
+
+            if(--letters[c] < 0){
+                return false;
+            }
+        }
+        return true;
     }
 
 }
