@@ -1,5 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -11,7 +13,8 @@ public class Main {
 //        task4();
 //        task5();
 //        task6();
-        task7();
+//        task7();
+        task8();
     }
 
     //Task1
@@ -156,6 +159,89 @@ public class Main {
         }
 
         System.out.println(output);
+    }
+
+    //Task8
+    public static void task8(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите название переменной.");
+
+        String s = scanner.next();
+        StringBuilder output = new StringBuilder();
+
+        if(isJavaAndC(s)){
+            System.out.println("Название " + s + " имеет смешанный тип (подходит для обоих языков)");
+        }
+        else if(isC(s)){
+            String regex = "_";
+            String[] strings = split(s, regex);
+
+            output.append(strings[0]);
+            for (int i = 1; i < strings.length; i++) {
+                for (int i1 = 0; i1 < strings[i].length(); i1++) {
+                    if(i1 == 0){
+                        output.append(Character.toUpperCase(strings[i].charAt(i1)));
+                    } else {
+                        output.append(strings[i].charAt(i1));
+                    }
+                }
+            }
+            System.out.println(output);
+        }
+
+        else if(isJava(s)){
+            String regex = "(?=[A-Z])";
+            String add = "_";
+            String[] strings = split(s, regex);
+
+            output.append(strings[0]);
+
+            for (int i = 1; i < strings.length; i++) {
+                output.append(add);
+                for (int i1 = 0; i1 < strings[i].length(); i1++) {
+                    if(i1 == 0){
+                        output.append(Character.toLowerCase(strings[i].charAt(i1)));
+                    } else {
+                        output.append(strings[i].charAt(i1));
+                    }
+                }
+            }
+            System.out.println(output);
+
+        }
+        else {
+            System.out.println("неверный формат");
+        }
+    }
+
+    //С++ - только маленькие буквы, слова разделены нижним подчеркиванием
+    public static boolean isC(String string){
+        String regEx = "^[a-z]+(_[a-z]+)+";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(string);
+
+        return matcher.find();
+    }
+
+    //JavaAndC - в названии только одно слово с маленькой буквы
+    public static boolean isJavaAndC(String string){
+        String regEx = "^[a-z]+$";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(string);
+
+        return matcher.find();
+    }
+
+    //Java - первое слово - маленькие буквы, каждое следующееслово - с большой буквы, без пробелов
+    public static boolean isJava(String string){
+        String regEx = "^[a-z]+([A-Z][a-z]+)+$";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(string);
+
+        return matcher.find();
+    }
+    public static String[] split(String resource,String regex){
+        return resource.split(regex);
     }
 
 }
