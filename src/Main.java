@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -16,7 +17,8 @@ public class Main {
 //        task7();
 //        task8();
 //        task9();
-        task10();
+//        task10();
+        task11();
     }
 
     //Task1
@@ -272,7 +274,7 @@ public class Main {
         for (int i = 0; i < s2.length(); i++) {
             int c = (int) s2.charAt(i);
 
-            if(--letters[c] < 0){
+            if (--letters[c] < 0) {
                 return false;
             }
         }
@@ -280,11 +282,11 @@ public class Main {
     }
 
     //Task10
-    public static void task10(){
+    public static void task10() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите строку (макс длина 50 символов)");
         String s = scanner.nextLine();
-        if(s.length() > 50){
+        if (s.length() > 50) {
             System.out.println("Вы ввели строку длинной более 50 символов");
         } else {
             int n = s.length();
@@ -300,6 +302,47 @@ public class Main {
                 System.out.println(s.substring(i, n));
             }
         }
+    }
+
+    //Task11
+    public static void task11() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите слово");
+
+        String string = scanner.next();
+
+        if(isWordMumbaYumba(string)){
+            System.out.println("This is Mumba-Yumba");
+        } else {
+            System.out.println("This is not Mumba-Yumba");
+        }
+
+    }
+
+    public static boolean isWordMumbaYumba(String string) {
+        boolean result = false;
+        String regEx1 = "[a-c]+$"; //только a,b,c
+        Pattern pattern1 = Pattern.compile(regEx1);
+        Matcher matcher1 = pattern1.matcher(string);
+        if(matcher1.find()){
+            result = true;
+
+            String regEx2 = "b{2}"; //нет двух b подряд
+            Pattern pattern2 = Pattern.compile(regEx2);
+            Matcher matcher2 = pattern2.matcher(string);
+            if(matcher2.find()){
+                result = false;
+            }
+
+            String regEx3 = "(\\w+)(\\1)(\\1)"; //в одном слове никогда не встречается три одинаковых подслова подряд
+            Pattern pattern3 = Pattern.compile(regEx3);
+            Matcher matcher3 = pattern3.matcher(string);
+            if(matcher3.find()){
+                result = false;
+            }
+
+        }
+        return result;
     }
 
 }
